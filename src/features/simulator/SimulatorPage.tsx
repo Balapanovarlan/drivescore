@@ -15,10 +15,9 @@ import { RiskBadge } from '@/components/widgets/RiskBadge'
 import { CoefficientTag } from '@/components/widgets/CoefficientTag'
 import { StatRow } from '@/components/widgets/StatRow'
 import { PenaltyBars } from '@/components/charts/PenaltyBars'
-import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
 import { computeScore } from '@/lib/scoring'
-import { formatKzt, formatNumber } from '@/lib/format'
+import { formatKzt } from '@/lib/format'
 import type { Locale, ScoreInput } from '@/data/types'
 
 const INITIAL: ScoreInput = {
@@ -46,16 +45,18 @@ const BASE_PREMIUM_KZT = 50000
 function Stepper({
   value,
   onChange,
+  step = 1,
 }: {
   value: number
   onChange: (value: number) => void
+  step?: number
 }) {
   return (
     <div className="flex items-center gap-2">
       <button
         type="button"
         aria-label="decrease"
-        onClick={() => onChange(Math.max(0, value - 1))}
+        onClick={() => onChange(Math.max(0, value - step))}
         className="flex size-8 items-center justify-center rounded-lg border text-muted-foreground transition-colors hover:bg-secondary"
       >
         <MinusIcon size={14} />
@@ -70,12 +71,12 @@ function Stepper({
           const digits = e.target.value.replace(/\D/g, '')
           onChange(digits === '' ? 0 : Number(digits))
         }}
-        className="w-12 rounded-lg border border-transparent bg-transparent py-1 text-center font-mono font-semibold tabular-nums outline-none focus:border-border focus:bg-secondary"
+        className="w-16 rounded-lg border border-transparent bg-transparent py-1 text-center font-mono font-semibold tabular-nums outline-none focus:border-border focus:bg-secondary"
       />
       <button
         type="button"
         aria-label="increase"
-        onClick={() => onChange(value + 1)}
+        onClick={() => onChange(value + step)}
         className="flex size-8 items-center justify-center rounded-lg border text-muted-foreground transition-colors hover:bg-secondary"
       >
         <PlusIcon size={14} />
@@ -116,29 +117,21 @@ export default function SimulatorPage() {
             </Button>
           }
         >
-          <div className="mb-6">
-            <div className="mb-2 flex items-center justify-between">
-              <label className="text-sm font-medium">
-                {t('simulator.mileage')}
-              </label>
-              <span className="rounded-lg bg-secondary px-2.5 py-1 font-mono text-sm font-semibold tabular-nums">
-                {formatNumber(input.mileageKm, locale)}
-              </span>
-            </div>
-            <Slider
-              value={[input.mileageKm]}
-              onValueChange={([value]) => setField('mileageKm', value)}
-              min={1000}
-              max={50000}
-              step={500}
-            />
-          </div>
-
           <div className="flex flex-col">
+            <div className="flex items-center justify-between border-t py-3 first:border-t-0">
+              <span className="text-sm font-medium">
+                {t('simulator.mileage')}
+              </span>
+              <Stepper
+                value={input.mileageKm}
+                onChange={(value) => setField('mileageKm', value)}
+                step={500}
+              />
+            </div>
             {FACTOR_FIELDS.map((factor) => (
               <div
                 key={factor}
-                className="flex items-center justify-between border-t py-3 first:border-t-0"
+                className="flex items-center justify-between border-t py-3"
               >
                 <span className="text-sm font-medium">
                   {t(`factor.${factor}`)}
