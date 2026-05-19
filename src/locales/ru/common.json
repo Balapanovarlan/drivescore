@@ -1,0 +1,154 @@
+{
+  "app": { "name": "DriveScore", "tagline": "Страховая консоль" },
+  "nav": {
+    "dashboard": "Дашборд",
+    "drivers": "Водители",
+    "simulator": "Симулятор",
+    "import": "Импорт",
+    "account": "Аккаунт",
+    "profile": "Профиль",
+    "settings": "Настройки"
+  },
+  "shell": {
+    "search": "Поиск",
+    "logout": "Выйти",
+    "language": "Язык"
+  },
+  "pages": {
+    "dashboard": "Обзор портфеля",
+    "drivers": "Реестр водителей",
+    "driverDetail": "Профиль водителя",
+    "simulator": "Симулятор скоринга",
+    "import": "Импорт данных"
+  },
+  "risk": {
+    "low": "Низкий риск",
+    "medium": "Средний риск",
+    "high": "Высокий риск"
+  },
+  "factor": {
+    "speeding": "Превышение скорости",
+    "harshBraking": "Резкое торможение",
+    "harshAcceleration": "Резкий разгон",
+    "phoneUsage": "Использование телефона",
+    "redLight": "Проезд на красный",
+    "accident": "ДТП"
+  },
+  "common": { "loading": "Загрузка…", "error": "Не удалось загрузить данные" },
+  "login": {
+    "eyebrow": "Вход",
+    "heading": "С возвращением",
+    "tagline": "Объективная оценка риска водителя по справедливой цене.",
+    "email": "Эл. почта",
+    "password": "Пароль",
+    "submit": "Войти",
+    "noAccount": "Нет аккаунта?",
+    "registerLink": "Зарегистрироваться"
+  },
+  "register": {
+    "eyebrow": "Регистрация",
+    "heading": "Создайте аккаунт",
+    "fullName": "Полное имя",
+    "email": "Эл. почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "submit": "Создать аккаунт",
+    "haveAccount": "Уже есть аккаунт?",
+    "loginLink": "Войти"
+  },
+  "dashboard": {
+    "subtitle": "Риск портфеля кратко",
+    "kpiTotal": "Всего водителей",
+    "kpiAvg": "Средний балл водителя",
+    "kpiHighRisk": "Доля высокого риска",
+    "kpiLossRatio": "Оценочная убыточность",
+    "riskDist": "Распределение риска",
+    "scoreDist": "Распределение баллов",
+    "highRisk": "Водители с высоким риском"
+  },
+  "drivers": {
+    "count": "водителей",
+    "registry": "Реестр водителей",
+    "search": "Поиск по имени или номеру прав",
+    "filterAll": "Все",
+    "empty": "Нет водителей по заданным фильтрам",
+    "colName": "Водитель",
+    "colLicense": "Права",
+    "colExperience": "Стаж",
+    "colScore": "Балл",
+    "colRisk": "Риск",
+    "colCoef": "Коэффициент",
+    "details": "Подробнее"
+  },
+  "driverDetail": {
+    "subtitle": "Профиль риска водителя",
+    "identity": "Данные",
+    "license": "Права",
+    "experience": "Стаж",
+    "city": "Город",
+    "added": "Добавлен",
+    "years": "лет",
+    "riskComposition": "Структура риска",
+    "scoreHistory": "История баллов",
+    "events": "События телематики",
+    "violations": "Нарушения и ДТП",
+    "recommendations": "Зоны внимания",
+    "colType": "Тип",
+    "colDate": "Дата",
+    "colSeverity": "Значение",
+    "colFine": "Штраф / статус",
+    "atFault": "Виновен",
+    "points": "балл.",
+    "driverScore": "Балл водителя",
+    "riskFactors": "Анализ факторов риска",
+    "recentEvents": "Последние события телематики",
+    "viewAll": "Все",
+    "mileage": "Пробег",
+    "incidents": "Инциденты",
+    "thisMonth": "за месяц",
+    "lastSixPeriods": "Последние 6 периодов"
+  },
+  "simulator": {
+    "subtitle": "Расчёт балла водителя по поведенческим параметрам",
+    "inputs": "Параметры",
+    "result": "Результат",
+    "mileage": "Годовой пробег (км)",
+    "reset": "Сбросить",
+    "coefficient": "Тарифный коэффициент",
+    "estPremium": "Оценочная премия",
+    "penaltyDistribution": "Распределение штрафов"
+  },
+  "import": {
+    "subtitle": "Загрузка событий телематики или нарушений ПДД",
+    "upload": "Загрузка CSV",
+    "selectFile": "Выберите CSV-файл",
+    "kindEvents": "События",
+    "kindViolations": "Нарушения",
+    "preview": "Предпросмотр",
+    "submit": "Импортировать и пересчитать",
+    "result": "Загружено {{records}} записей, пересчитано {{drivers}} водителей"
+  },
+  "profile": {
+    "title": "Профиль",
+    "subtitle": "Информация об аккаунте",
+    "account": "Аккаунт",
+    "fullName": "Полное имя",
+    "role": "Роль",
+    "email": "Эл. почта"
+  },
+  "settings": {
+    "title": "Настройки",
+    "subtitle": "Параметры приложения",
+    "account": "Аккаунт",
+    "fullName": "Полное имя",
+    "role": "Роль",
+    "email": "Эл. почта",
+    "preferences": "Предпочтения",
+    "language": "Язык",
+    "changePassword": "Изменить пароль",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль",
+    "confirmPassword": "Подтвердите новый пароль",
+    "changePasswordButton": "Изменить пароль"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "app": { "name": "DriveScore", "tagline": "Сақтандыру консолі" },
+  "nav": {
+    "dashboard": "Бақылау тақтасы",
+    "drivers": "Жүргізушілер",
+    "simulator": "Симулятор",
+    "import": "Импорт",
+    "account": "Аккаунт",
+    "profile": "Профиль",
+    "settings": "Баптаулар"
+  },
+  "shell": {
+    "search": "Іздеу",
+    "logout": "Шығу",
+    "language": "Тіл"
+  },
+  "pages": {
+    "dashboard": "Портфельге шолу",
+    "drivers": "Жүргізушілер тізілімі",
+    "driverDetail": "Жүргізуші профилі",
+    "simulator": "Скоринг симуляторы",
+    "import": "Деректерді импорттау"
+  },
+  "risk": {
+    "low": "Төмен тәуекел",
+    "medium": "Орташа тәуекел",
+    "high": "Жоғары тәуекел"
+  },
+  "factor": {
+    "speeding": "Жылдамдықты арттыру",
+    "harshBraking": "Кенет тежеу",
+    "harshAcceleration": "Кенет үдеу",
+    "phoneUsage": "Телефонды пайдалану",
+    "redLight": "Қызыл шамнан өту",
+    "accident": "Жол апаттары"
+  },
+  "common": { "loading": "Жүктелуде…", "error": "Деректерді жүктеу сәтсіз аяқталды" },
+  "login": {
+    "eyebrow": "Кіру",
+    "heading": "Қайта келдіңіз",
+    "tagline": "Жүргізуші тәуекелін әділ бағалау.",
+    "email": "Эл. пошта",
+    "password": "Құпия сөз",
+    "submit": "Кіру",
+    "noAccount": "Аккаунт жоқ па?",
+    "registerLink": "Тіркелу"
+  },
+  "register": {
+    "eyebrow": "Тіркелу",
+    "heading": "Аккаунт жасаңыз",
+    "fullName": "Толық аты-жөні",
+    "email": "Эл. пошта",
+    "password": "Құпия сөз",
+    "confirmPassword": "Құпия сөзді растаңыз",
+    "submit": "Аккаунт жасау",
+    "haveAccount": "Аккаунтыңыз бар ма?",
+    "loginLink": "Кіру"
+  },
+  "dashboard": {
+    "subtitle": "Портфель тәуекеліне шолу",
+    "kpiTotal": "Барлық жүргізушілер",
+    "kpiAvg": "Орташа балл",
+    "kpiHighRisk": "Жоғары тәуекел үлесі",
+    "kpiLossRatio": "Болжамды шығындылық",
+    "riskDist": "Тәуекелдің таралуы",
+    "scoreDist": "Балдардың таралуы",
+    "highRisk": "Жоғары тәуекелді жүргізушілер"
+  },
+  "drivers": {
+    "count": "жүргізуші",
+    "registry": "Жүргізушілер тізілімі",
+    "search": "Аты немесе куәлік нөмірі бойынша іздеу",
+    "filterAll": "Барлығы",
+    "empty": "Сүзгілерге сәйкес жүргізуші жоқ",
+    "colName": "Жүргізуші",
+    "colLicense": "Куәлік",
+    "colExperience": "Өтілі",
+    "colScore": "Балл",
+    "colRisk": "Тәуекел",
+    "colCoef": "Коэффициент",
+    "details": "Толығырақ"
+  },
+  "driverDetail": {
+    "subtitle": "Жүргізушінің тәуекел профилі",
+    "identity": "Деректер",
+    "license": "Куәлік",
+    "experience": "Өтілі",
+    "city": "Қала",
+    "added": "Қосылды",
+    "years": "жыл",
+    "riskComposition": "Тәуекел құрылымы",
+    "scoreHistory": "Балл тарихы",
+    "events": "Телематика оқиғалары",
+    "violations": "Бұзушылықтар мен ЖКО",
+    "recommendations": "Назар аударатын тұстар",
+    "colType": "Түрі",
+    "colDate": "Күні",
+    "colSeverity": "Мәні",
+    "colFine": "Айыппұл / мәртебе",
+    "atFault": "Кінәлі",
+    "points": "балл",
+    "driverScore": "Жүргізуші балы",
+    "riskFactors": "Тәуекел факторларын талдау",
+    "recentEvents": "Соңғы телематика оқиғалары",
+    "viewAll": "Барлығы",
+    "mileage": "Жүгіріс",
+    "incidents": "Оқиғалар",
+    "thisMonth": "айына",
+    "lastSixPeriods": "Соңғы 6 кезең"
+  },
+  "simulator": {
+    "subtitle": "Мінез-құлық параметрлері бойынша балл есептеу",
+    "inputs": "Параметрлер",
+    "result": "Нәтиже",
+    "mileage": "Жылдық жүгіріс (км)",
+    "reset": "Тазалау",
+    "coefficient": "Тарифтік коэффициент",
+    "estPremium": "Болжамды сыйақы",
+    "penaltyDistribution": "Айыппұл таралуы"
+  },
+  "import": {
+    "subtitle": "Телематика оқиғаларын немесе бұзушылықтарды жүктеу",
+    "upload": "CSV жүктеу",
+    "selectFile": "CSV файлын таңдаңыз",
+    "kindEvents": "Оқиғалар",
+    "kindViolations": "Бұзушылықтар",
+    "preview": "Алдын ала қарау",
+    "submit": "Импорттау және қайта есептеу",
+    "result": "{{records}} жазба жүктелді, {{drivers}} жүргізуші қайта есептелді"
+  },
+  "profile": {
+    "title": "Профиль",
+    "subtitle": "Аккаунт туралы ақпарат",
+    "account": "Аккаунт",
+    "fullName": "Толық аты-жөні",
+    "role": "Рөлі",
+    "email": "Эл. пошта"
+  },
+  "settings": {
+    "title": "Баптаулар",
+    "subtitle": "Қолданба параметрлері",
+    "account": "Аккаунт",
+    "fullName": "Толық аты-жөні",
+    "role": "Рөлі",
+    "email": "Эл. пошта",
+    "preferences": "Баптаулар",
+    "language": "Тіл",
+    "changePassword": "Құпия сөзді өзгерту",
+    "currentPassword": "Ағымдағы құпия сөз",
+    "newPassword": "Жаңа құпия сөз",
+    "confirmPassword": "Жаңа құпия сөзді растаңыз",
+    "changePasswordButton": "Құпия сөзді өзгерту"
+  }
+}

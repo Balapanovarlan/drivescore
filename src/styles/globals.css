@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  /* shadcn contract — Vivid Ember light theme */
+  --background: #f8f9fb;
+  --foreground: #191c1e;
+  --card: #ffffff;
+  --card-foreground: #191c1e;
+  --popover: #ffffff;
+  --popover-foreground: #191c1e;
+  --primary: #ff5722;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f4f6;
+  --secondary-foreground: #191c1e;
+  --muted: #eceef0;
+  --muted-foreground: #5b4039;
+  --accent: #f2f4f6;
+  --accent-foreground: #191c1e;
+  --destructive: #ba1a1a;
+  --destructive-foreground: #ffffff;
+  --border: #e0e3e5;
+  --input: #e0e3e5;
+  --ring: #ff5722;
+  --radius: 1.5rem;
+
+  /* domain tokens */
+  --primary-deep: #b02f00;
+  --slate: #0f0f0f;
+  --slate-foreground: #f8f9fb;
+  --risk-low: #1e8e3e;
+  --risk-medium: #c08a2e;
+  --risk-high: #ba1a1a;
+  --surface-container: #eceef0;
+  --surface-container-low: #f2f4f6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-slate: var(--slate);
+  --color-slate-foreground: var(--slate-foreground);
+  --color-risk-low: var(--risk-low);
+  --color-risk-medium: var(--risk-medium);
+  --color-risk-high: var(--risk-high);
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 1.5rem;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.soft-shadow {
+  box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.08);
+}

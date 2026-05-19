@@ -1,0 +1,154 @@
+{
+  "app": { "name": "DriveScore", "tagline": "Insurance Console" },
+  "nav": {
+    "dashboard": "Dashboard",
+    "drivers": "Drivers",
+    "simulator": "Simulator",
+    "import": "Import",
+    "account": "Account",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "shell": {
+    "search": "Search",
+    "logout": "Log out",
+    "language": "Language"
+  },
+  "pages": {
+    "dashboard": "Portfolio Overview",
+    "drivers": "Driver Registry",
+    "driverDetail": "Driver Profile",
+    "simulator": "Scoring Simulator",
+    "import": "Import Data"
+  },
+  "risk": {
+    "low": "Low risk",
+    "medium": "Medium risk",
+    "high": "High risk"
+  },
+  "factor": {
+    "speeding": "Speeding",
+    "harshBraking": "Harsh braking",
+    "harshAcceleration": "Harsh acceleration",
+    "phoneUsage": "Phone usage",
+    "redLight": "Red-light",
+    "accident": "Accidents"
+  },
+  "common": { "loading": "Loading…", "error": "Failed to load data" },
+  "login": {
+    "eyebrow": "Sign in",
+    "heading": "Welcome back",
+    "tagline": "Objective driver risk, fairly priced.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Register"
+  },
+  "register": {
+    "eyebrow": "Sign up",
+    "heading": "Create your account",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Create account",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Sign in"
+  },
+  "dashboard": {
+    "subtitle": "Portfolio risk at a glance",
+    "kpiTotal": "Total drivers",
+    "kpiAvg": "Average driver score",
+    "kpiHighRisk": "High-risk share",
+    "kpiLossRatio": "Estimated loss ratio",
+    "riskDist": "Risk distribution",
+    "scoreDist": "Score distribution",
+    "highRisk": "Highest-risk drivers"
+  },
+  "drivers": {
+    "count": "drivers",
+    "registry": "Driver registry",
+    "search": "Search by name or license",
+    "filterAll": "All",
+    "empty": "No drivers match the filters",
+    "colName": "Driver",
+    "colLicense": "License",
+    "colExperience": "Experience",
+    "colScore": "Score",
+    "colRisk": "Risk",
+    "colCoef": "Coefficient",
+    "details": "Details"
+  },
+  "driverDetail": {
+    "subtitle": "Driver risk profile",
+    "identity": "Identity",
+    "license": "License",
+    "experience": "Experience",
+    "city": "City",
+    "added": "Added",
+    "years": "yrs",
+    "riskComposition": "Risk composition",
+    "scoreHistory": "Score history",
+    "events": "Telematics events",
+    "violations": "Violations & accidents",
+    "recommendations": "Focus areas",
+    "colType": "Type",
+    "colDate": "Date",
+    "colSeverity": "Severity",
+    "colFine": "Fine / status",
+    "atFault": "At fault",
+    "points": "pts",
+    "driverScore": "Driver Score",
+    "riskFactors": "Risk Factor Analysis",
+    "recentEvents": "Recent Telematics Events",
+    "viewAll": "View all",
+    "mileage": "Mileage",
+    "incidents": "Incidents",
+    "thisMonth": "this month",
+    "lastSixPeriods": "Last 6 periods"
+  },
+  "simulator": {
+    "subtitle": "Compute a driver score from behaviour inputs",
+    "inputs": "Parameters",
+    "result": "Result",
+    "mileage": "Annual mileage (km)",
+    "reset": "Reset",
+    "coefficient": "Tariff coefficient",
+    "estPremium": "Estimated premium",
+    "penaltyDistribution": "Penalty distribution"
+  },
+  "import": {
+    "subtitle": "Upload telematics events or traffic violations",
+    "upload": "Upload CSV",
+    "selectFile": "Choose a CSV file",
+    "kindEvents": "Events",
+    "kindViolations": "Violations",
+    "preview": "Preview",
+    "submit": "Import & recompute",
+    "result": "Imported {{records}} records, recomputed {{drivers}} drivers"
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Your account information",
+    "account": "Account",
+    "fullName": "Full name",
+    "role": "Role",
+    "email": "Email"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Application preferences",
+    "account": "Account",
+    "fullName": "Full name",
+    "role": "Role",
+    "email": "Email",
+    "preferences": "Preferences",
+    "language": "Language",
+    "changePassword": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "changePasswordButton": "Change password"
+  }
+}
