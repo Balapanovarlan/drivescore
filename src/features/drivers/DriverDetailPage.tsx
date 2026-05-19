@@ -115,7 +115,7 @@ export default function DriverDetailPage() {
       <section
         className={cn(
           CARD,
-          'relative col-span-12 flex flex-col items-center gap-8 overflow-hidden sm:flex-row sm:items-start lg:col-span-8',
+          'relative col-span-12 flex flex-col justify-center items-center gap-8 overflow-hidden sm:flex-row sm:items-center lg:col-span-8',
         )}
       >
         <div className="pointer-events-none absolute -top-32 right-0 size-64 translate-x-1/4 rounded-full bg-primary/20 blur-3xl" />
