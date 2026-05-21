@@ -163,7 +163,9 @@
     "currentPassword": "Текущий пароль",
     "newPassword": "Новый пароль",
     "confirmPassword": "Подтвердите новый пароль",
-    "changePasswordButton": "Изменить пароль"
+    "changePasswordButton": "Изменить пароль",
+    "passwordTooShort": "Новый пароль должен содержать не менее 4 символов.",
+    "passwordChanged": "Пароль обновлён."
   },
   "time": {
     "seconds_one": "{{count}} секунду",

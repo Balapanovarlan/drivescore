@@ -75,23 +75,115 @@ mock.onGet('/api/koap-articles').reply(200, [
   { code: 'Art.599', name: 'Red light', weight: 8, factorGroup: 'redLight' },
 ])
 
-// POST /api/score/simulate
-mock.onPost('/api/score/simulate').reply(200, {
-  score: 75,
-  riskCategory: 'low',
-  riskTier: 'moderate',
-  premiumCoefficient: 1.0,
-  finalPremiumKzt: 200000,
-  accidentFactor: 1.0,
-  discount: 0.05,
-  breakdown: {
+// POST /api/score/simulate — coarse client-side mirror of the docx formula
+// so the Vercel demo (no real backend) still reacts to user input.
+mock.onPost('/api/score/simulate').reply((config) => {
+  const body = JSON.parse(config.data ?? '{}') as {
+    violations: { articleCode: string; atFault: boolean }[]
+    accidentCount: number
+  }
+
+  const WEIGHTS: Record<string, number> = {
+    'Art.592': 2,
+    'Art.592 Part 3-1': 10,
+    'Art.591': 5,
+    'Art.599': 8,
+    'Art.593': 3,
+    'Art.596 Part 3': 15,
+    'Art.613 Part 1': 12,
+    'Art.612 Part 3': 20,
+    'Art.611 Part 2': 18,
+    'Art.608 Part 1': 25,
+    'Art.608 Part 3': 35,
+    'Art.613 Part 4': 30,
+  }
+  const FACTOR_GROUP: Record<string, string> = {
+    'Art.592': 'speeding',
+    'Art.592 Part 3-1': 'speeding',
+    'Art.591': 'phoneUsage',
+    'Art.599': 'redLight',
+    'Art.593': 'harshAcceleration',
+    'Art.596 Part 3': 'harshBraking',
+    'Art.613 Part 1': 'harshBraking',
+    'Art.612 Part 3': 'harshAcceleration',
+    'Art.611 Part 2': 'accident',
+    'Art.608 Part 1': 'accident',
+    'Art.608 Part 3': 'accident',
+    'Art.613 Part 4': 'accident',
+  }
+
+  // Group by article, F=count, R from table
+  const grouped: Record<string, number> = {}
+  for (const v of body.violations) {
+    grouped[v.articleCode] = (grouped[v.articleCode] ?? 0) + 1
+  }
+  const breakdown: Record<string, number> = {
     speeding: 0,
     harshBraking: 0,
     harshAcceleration: 0,
     phoneUsage: 0,
     redLight: 0,
     accident: 0,
-  },
+  }
+  let riskScore = 0
+  for (const [code, count] of Object.entries(grouped)) {
+    const w = WEIGHTS[code] ?? 0
+    const r = count <= 1 ? 1.0 : count === 2 ? 1.3 : count === 3 ? 1.6 : 2.0
+    const contribution = w * count * r // decay = 1.0 because all today
+    riskScore += contribution
+    const group = FACTOR_GROUP[code] ?? 'accident'
+    breakdown[group] += contribution
+  }
+  riskScore = Math.round(riskScore * 100) / 100
+
+  const accidentFactor =
+    body.accidentCount === 0
+      ? 1.0
+      : body.accidentCount === 1
+        ? 1.2
+        : body.accidentCount === 2
+          ? 1.5
+          : 2.0
+  const discount = body.violations.length === 0 ? 0.25 : 0
+  const behavioral = 1 + 0.02 * riskScore
+  const finalPremium = Math.round(200_000 * behavioral * accidentFactor * (1 - discount))
+
+  const safety = Math.max(0, Math.min(100, Math.round(100 * Math.exp(-riskScore / 30))))
+  let tier: 'low' | 'moderate' | 'high' | 'dangerous' | 'critical' = 'low'
+  let coef = 0.9
+  if (riskScore > 50) {
+    tier = 'critical'
+    coef = 2.2
+  } else if (riskScore > 30) {
+    tier = 'dangerous'
+    coef = 1.7
+  } else if (riskScore > 15) {
+    tier = 'high'
+    coef = 1.3
+  } else if (riskScore > 5) {
+    tier = 'moderate'
+    coef = 1.0
+  }
+  const riskCategory =
+    tier === 'low' || tier === 'moderate'
+      ? 'low'
+      : tier === 'high'
+        ? 'medium'
+        : 'high'
+
+  return [
+    200,
+    {
+      score: safety,
+      riskCategory,
+      riskTier: tier,
+      premiumCoefficient: coef,
+      finalPremiumKzt: finalPremium,
+      accidentFactor,
+      discount,
+      breakdown,
+    },
+  ]
 })
 
 // POST /api/import/violations

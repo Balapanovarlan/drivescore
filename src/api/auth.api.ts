@@ -30,6 +30,13 @@ export async function getMe(): Promise<User> {
   return data
 }
 
+export async function changePassword(input: {
+  currentPassword: string
+  newPassword: string
+}): Promise<void> {
+  await apiClient.post('/auth/change-password', input)
+}
+
 const TOKEN_KEY = 'drivescore.token'
 
 export function getToken(): string | null {

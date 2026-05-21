@@ -163,7 +163,9 @@
     "currentPassword": "Current password",
     "newPassword": "New password",
     "confirmPassword": "Confirm new password",
-    "changePasswordButton": "Change password"
+    "changePasswordButton": "Change password",
+    "passwordTooShort": "New password must be at least 4 characters.",
+    "passwordChanged": "Password updated."
   },
   "time": {
     "seconds_one": "{{count}} second",

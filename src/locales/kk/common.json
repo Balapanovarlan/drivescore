@@ -163,7 +163,9 @@
     "currentPassword": "Ағымдағы құпия сөз",
     "newPassword": "Жаңа құпия сөз",
     "confirmPassword": "Жаңа құпия сөзді растаңыз",
-    "changePasswordButton": "Құпия сөзді өзгерту"
+    "changePasswordButton": "Құпия сөзді өзгерту",
+    "passwordTooShort": "Жаңа құпиясөз кемінде 4 таңбадан тұруы керек.",
+    "passwordChanged": "Құпиясөз жаңартылды."
   },
   "time": {
     "seconds_one": "{{count}} секунд",
