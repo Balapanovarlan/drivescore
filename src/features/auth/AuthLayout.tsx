@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { FireIcon } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 
 export function AuthLayout({ children }: { children: ReactNode }) {
   const { t } = useTranslation()
@@ -16,7 +17,10 @@ export function AuthLayout({ children }: { children: ReactNode }) {
         <p className="text-2xl font-semibold leading-snug">{t('login.tagline')}</p>
         <span className="text-sm text-white/60">{t('app.tagline')}</span>
       </div>
-      <div className="flex flex-1 items-center justify-center p-8">
+      <div className="relative flex flex-1 items-center justify-center p-8">
+        <div className="absolute right-6 top-6">
+          <LanguageSwitcher />
+        </div>
         <div className="w-full max-w-sm">{children}</div>
       </div>
     </div>
