@@ -125,8 +125,11 @@ export default function DriverDetailPage() {
               {initials}
             </div>
           </div>
-          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate px-3 py-1 text-xs font-bold text-slate-foreground">
-            ID: #{driver.id}
+          <div
+            className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate px-3 py-1 font-mono text-xs font-bold tracking-wider text-slate-foreground"
+            title={t('drivers.license')}
+          >
+            {driver.licenseNumber}
           </div>
         </div>
         <div className="z-10 w-full flex-1 text-center sm:text-left">
