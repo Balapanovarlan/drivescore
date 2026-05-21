@@ -1,7 +1,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install --no-audit --no-fund
 COPY . .
 ARG VITE_USE_MOCKS=false
 ARG VITE_API_BASE_URL=/api
