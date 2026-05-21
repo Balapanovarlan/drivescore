@@ -4,6 +4,7 @@ export interface User {
   id: string
   email: string
   fullName: string | null
+  role: 'admin' | 'manager'
 }
 
 export interface AuthResponse {

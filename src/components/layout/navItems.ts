@@ -4,6 +4,7 @@ import {
   SlidersHorizontalIcon,
   UploadSimpleIcon,
   GearIcon,
+  ShieldCheckIcon,
   type Icon,
 } from '@phosphor-icons/react'
 
@@ -13,6 +14,8 @@ export interface NavItem {
   labelKey: string
   icon: Icon
   end?: boolean
+  /** If true, item is only shown for admins. */
+  adminOnly?: boolean
 }
 
 export const PRIMARY_NAV: NavItem[] = [
@@ -23,5 +26,6 @@ export const PRIMARY_NAV: NavItem[] = [
 ]
 
 export const SECONDARY_NAV: NavItem[] = [
+  { to: '/users', labelKey: 'nav.users', icon: ShieldCheckIcon, adminOnly: true },
   { to: '/settings', labelKey: 'nav.settings', icon: GearIcon },
 ]

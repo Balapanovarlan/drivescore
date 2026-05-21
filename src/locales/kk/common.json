@@ -10,7 +10,8 @@
     "import": "Импорт",
     "account": "Аккаунт",
     "profile": "Профиль",
-    "settings": "Баптаулар"
+    "settings": "Баптаулар",
+    "users": "Қолданушылар"
   },
   "shell": {
     "search": "Іздеу",
@@ -174,5 +175,24 @@
     "minutes_other": "{{count}} минут",
     "hours_one": "{{count}} сағат",
     "hours_other": "{{count}} сағат"
+  },
+  "users": {
+    "title": "Қолданушылар",
+    "subtitle": "DriveScore-ға кіре алатын адамдарды басқарыңыз.",
+    "create": "Қолданушы құру",
+    "existing": "Бар қолданушылар",
+    "firstName": "Аты",
+    "lastName": "Тегі",
+    "name": "Аты",
+    "email": "Email",
+    "password": "Құпиясөз",
+    "passwordHint": "Бұл құпиясөзді қолданушыға қауіпсіз жолмен жеткізіңіз. Ол оны Баптауларда өзгерте алады.",
+    "role": "Рөлі",
+    "role_admin": "Әкімші",
+    "role_manager": "Менеджер",
+    "generate": "Құпиясөз генерациялау",
+    "copy": "Көшіру",
+    "submit": "Құру",
+    "created": "Қолданушы құрылды."
   }
 }

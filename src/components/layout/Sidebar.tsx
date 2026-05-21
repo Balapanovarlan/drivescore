@@ -1,5 +1,6 @@
 import { FireIcon } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { useMe } from '@/api/hooks/useMe'
 import { PRIMARY_NAV, SECONDARY_NAV } from './navItems'
 import { SidebarNavItem } from './SidebarNavItem'
 import { UserCard } from './UserCard'
@@ -10,6 +11,9 @@ interface SidebarProps {
 
 export function Sidebar({ onNavigate }: SidebarProps) {
   const { t } = useTranslation()
+  const me = useMe()
+  const isAdmin = me.data?.role === 'admin'
+  const secondary = SECONDARY_NAV.filter((item) => !item.adminOnly || isAdmin)
   return (
     <aside className="flex h-full w-[260px] shrink-0 flex-col gap-6 overflow-y-auto border-r bg-card p-4">
       <div className="flex items-center gap-2.5 px-2 pt-2">
@@ -32,7 +36,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
         <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
           {t('nav.account')}
         </p>
-        {SECONDARY_NAV.map((item) => (
+        {secondary.map((item) => (
           <SidebarNavItem key={item.to} item={item} onNavigate={onNavigate} />
         ))}
       </div>

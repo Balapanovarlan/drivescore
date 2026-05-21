@@ -10,7 +10,8 @@
     "import": "Import",
     "account": "Account",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "users": "Users"
   },
   "shell": {
     "search": "Search",
@@ -174,5 +175,24 @@
     "minutes_other": "{{count}} minutes",
     "hours_one": "{{count}} hour",
     "hours_other": "{{count}} hours"
+  },
+  "users": {
+    "title": "Users",
+    "subtitle": "Manage who can sign in to DriveScore.",
+    "create": "Create user",
+    "existing": "Existing users",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "Share this password with the user securely. They can change it from Settings.",
+    "role": "Role",
+    "role_admin": "Admin",
+    "role_manager": "Manager",
+    "generate": "Generate password",
+    "copy": "Copy password",
+    "submit": "Create user",
+    "created": "User created."
   }
 }

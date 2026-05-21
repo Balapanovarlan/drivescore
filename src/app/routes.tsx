@@ -6,14 +6,15 @@ import DriverDetailPage from '@/features/drivers/DriverDetailPage'
 import SimulatorPage from '@/features/simulator/SimulatorPage'
 import ImportPage from '@/features/import/ImportPage'
 import LoginPage from '@/features/auth/LoginPage'
-import RegisterPage from '@/features/auth/RegisterPage'
+import { RequireAdmin } from '@/features/auth/RequireAdmin'
 import { RequireAuth } from '@/features/auth/RequireAuth'
 import SettingsPage from '@/features/settings/SettingsPage'
 import StyleguidePage from '@/features/styleguide/StyleguidePage'
+import UsersPage from '@/features/users/UsersPage'
 
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
-  { path: '/register', element: <RegisterPage /> },
+  // /register intentionally removed — admins create users via /users.
   {
     element: <RequireAuth />,
     children: [
@@ -27,6 +28,14 @@ export const router = createBrowserRouter([
           { path: 'simulator', element: <SimulatorPage /> },
           { path: 'import', element: <ImportPage /> },
           { path: 'settings', element: <SettingsPage /> },
+          {
+            path: 'users',
+            element: (
+              <RequireAdmin>
+                <UsersPage />
+              </RequireAdmin>
+            ),
+          },
           { path: 'styleguide', element: <StyleguidePage /> },
         ],
       },

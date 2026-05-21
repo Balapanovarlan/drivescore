@@ -39,33 +39,87 @@ mock.onPost('/api/import/csv').reply((config) => {
   return [200, { importedRecords: body.rows ?? 0, recomputedDrivers: MOCK_DRIVERS.length }]
 })
 
-// POST /api/auth/login — demo upsert, accepts anything
+// Mock users store — survives within one tab/session.
+interface MockUser {
+  id: string
+  email: string
+  fullName: string | null
+  role: 'admin' | 'manager'
+}
+const MOCK_USERS: MockUser[] = [
+  {
+    id: '00000000-0000-0000-0000-000000000001',
+    email: 'info@adam.ua',
+    fullName: 'Admin',
+    role: 'admin',
+  },
+]
+
+function findUser(email: string): MockUser | undefined {
+  return MOCK_USERS.find((u) => u.email.toLowerCase() === email.toLowerCase())
+}
+
+let currentMockUser: MockUser = MOCK_USERS[0]
+
+// POST /api/auth/login — accepts any email; the mock pretends auth always succeeds.
 mock.onPost('/api/auth/login').reply((config) => {
   const body = JSON.parse(config.data ?? '{}')
-  return [
-    200,
-    {
-      token: 'mock-token',
-      user: {
-        id: 'mock-id',
+  const user =
+    findUser(body.email) ??
+    (() => {
+      const created: MockUser = {
+        id: crypto.randomUUID(),
         email: body.email ?? 'demo@drivescore.kz',
         fullName: null,
-      },
-    },
-  ]
+        role: 'manager',
+      }
+      MOCK_USERS.push(created)
+      return created
+    })()
+  currentMockUser = user
+  return [200, { token: 'mock-token', user }]
 })
 
 // POST /api/auth/register
-mock.onPost('/api/auth/register').reply(201, {
-  token: 'mock-token',
-  user: { id: 'mock-id', email: 'demo@drivescore.kz', fullName: 'Demo' },
+mock.onPost('/api/auth/register').reply((config) => {
+  const body = JSON.parse(config.data ?? '{}')
+  const user: MockUser = {
+    id: crypto.randomUUID(),
+    email: body.email,
+    fullName: body.fullName ?? null,
+    role: 'manager',
+  }
+  MOCK_USERS.push(user)
+  currentMockUser = user
+  return [201, { token: 'mock-token', user }]
 })
 
 // GET /api/auth/me
-mock.onGet('/api/auth/me').reply(200, {
-  id: 'mock-id',
-  email: 'info@adam.ua',
-  fullName: 'Test User',
+mock.onGet('/api/auth/me').reply(() => [200, currentMockUser])
+
+// POST /api/auth/change-password
+mock.onPost('/api/auth/change-password').reply(204)
+
+// GET /api/users (admin only — mock can't really enforce, returns 403 unless admin)
+mock.onGet('/api/users').reply(() => {
+  if (currentMockUser.role !== 'admin') return [403, { detail: 'Admin role required.' }]
+  return [200, MOCK_USERS]
+})
+
+// POST /api/users
+mock.onPost('/api/users').reply((config) => {
+  if (currentMockUser.role !== 'admin')
+    return [403, { detail: 'Admin role required.' }]
+  const body = JSON.parse(config.data ?? '{}')
+  if (findUser(body.email)) return [409, { detail: 'Email already registered' }]
+  const user: MockUser = {
+    id: crypto.randomUUID(),
+    email: body.email,
+    fullName: body.fullName ?? null,
+    role: body.role === 'admin' ? 'admin' : 'manager',
+  }
+  MOCK_USERS.push(user)
+  return [201, user]
 })
 
 // GET /api/koap-articles
