@@ -8,12 +8,14 @@ import {
   ArrowsClockwiseIcon,
   CopyIcon,
   CheckIcon,
+  TrashIcon,
 } from '@phosphor-icons/react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SectionCard } from '@/components/widgets/SectionCard'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { createUser } from '@/api/users.api'
+import { createUser, deleteUser } from '@/api/users.api'
+import { useMe } from '@/api/hooks/useMe'
 import { useUsers } from '@/api/hooks/useUsers'
 import { generatePassword } from '@/lib/generatePassword'
 import type { User } from '@/api/auth.api'
@@ -27,6 +29,7 @@ export default function UsersPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const usersQuery = useUsers()
+  const me = useMe()
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -34,6 +37,7 @@ export default function UsersPage() {
   const [password, setPassword] = useState('')
   const [role, setRole] = useState<'admin' | 'manager'>('manager')
   const [copied, setCopied] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const createMutation = useMutation({
     mutationFn: () =>
@@ -53,6 +57,21 @@ export default function UsersPage() {
       setCopied(false)
     },
   })
+
+  const deleteMutation = useMutation({
+    mutationFn: (userId: string) => deleteUser(userId),
+    onMutate: (userId) => setDeletingId(userId),
+    onSettled: () => {
+      setDeletingId(null)
+      void queryClient.invalidateQueries({ queryKey: ['users'] })
+    },
+  })
+
+  function handleDelete(user: User) {
+    const displayName = user.fullName || user.email
+    if (!window.confirm(t('users.deleteConfirm', { name: displayName }))) return
+    deleteMutation.mutate(user.id)
+  }
 
   function handleGenerate() {
     setPassword(generatePassword())
@@ -217,34 +236,53 @@ export default function UsersPage() {
               <table className="w-full text-left text-sm">
                 <thead>
                   <tr className="border-b text-xs uppercase tracking-wider text-muted-foreground">
-                    <th className="pb-3 font-semibold">{t('users.name')}</th>
-                    <th className="pb-3 font-semibold">{t('users.email')}</th>
-                    <th className="pb-3 text-right font-semibold">{t('users.role')}</th>
+                    <th className="px-3 pb-3 font-semibold first:pl-0">{t('users.name')}</th>
+                    <th className="px-3 pb-3 font-semibold">{t('users.email')}</th>
+                    <th className="px-3 pb-3 text-right font-semibold">{t('users.role')}</th>
+                    <th className="px-3 pb-3 last:pr-0" aria-label={t('users.actions')} />
                   </tr>
                 </thead>
                 <tbody>
-                  {usersQuery.data.map((u: User) => (
-                    <tr key={u.id} className="border-b last:border-b-0">
-                      <td className="py-3 font-medium">
-                        {u.fullName || '—'}
-                      </td>
-                      <td className="py-3 font-mono text-xs text-muted-foreground">
-                        {u.email}
-                      </td>
-                      <td className="py-3 text-right">
-                        <span
-                          className={
-                            'rounded-full px-2.5 py-0.5 text-xs font-semibold ' +
-                            (u.role === 'admin'
-                              ? 'bg-primary/10 text-primary'
-                              : 'bg-muted text-muted-foreground')
-                          }
-                        >
-                          {t(`users.role_${u.role}`)}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {usersQuery.data.map((u: User) => {
+                    const isMe = me.data?.id === u.id
+                    const isDeleting = deletingId === u.id
+                    return (
+                      <tr key={u.id} className="border-b last:border-b-0">
+                        <td className="px-3 py-3 font-medium first:pl-0">
+                          {u.fullName || '—'}
+                        </td>
+                        <td className="px-3 py-3 font-mono text-xs text-muted-foreground">
+                          {u.email}
+                        </td>
+                        <td className="px-3 py-3 text-right">
+                          <span
+                            className={
+                              'rounded-full px-2.5 py-0.5 text-xs font-semibold ' +
+                              (u.role === 'admin'
+                                ? 'bg-primary/10 text-primary'
+                                : 'bg-muted text-muted-foreground')
+                            }
+                          >
+                            {t(`users.role_${u.role}`)}
+                          </span>
+                        </td>
+                        <td className="px-3 py-3 text-right last:pr-0">
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(u)}
+                            disabled={isMe || isDeleting}
+                            title={
+                              isMe ? t('users.deleteSelfTooltip') : t('users.delete')
+                            }
+                            aria-label={t('users.delete')}
+                            className="inline-flex size-8 items-center justify-center rounded-lg border text-muted-foreground transition-colors hover:border-risk-high hover:bg-risk-high/10 hover:text-risk-high disabled:opacity-30 disabled:hover:border-border disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
+                          >
+                            <TrashIcon size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>

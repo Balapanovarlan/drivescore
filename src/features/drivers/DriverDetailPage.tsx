@@ -34,7 +34,7 @@ const RISK_TEXT: Record<RiskCategory, string> = {
   high: 'text-risk-high',
 }
 
-const CARD = 'rounded-[2rem] bg-card p-8 soft-shadow'
+const CARD = 'rounded-[2rem] bg-card p-6 soft-shadow sm:p-8'
 
 function ScoreRing({ score }: { score: number }) {
   const radius = 45
@@ -78,11 +78,11 @@ function ScoreRing({ score }: { score: number }) {
 
 function StatTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col items-center rounded-2xl border bg-background p-4 sm:items-start">
-      <span className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+    <div className="flex flex-col items-center rounded-2xl border bg-background p-3 sm:items-start sm:p-4">
+      <span className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground sm:text-xs">
         {label}
       </span>
-      <span className="text-2xl font-bold">{value}</span>
+      <span className="text-lg font-bold leading-tight sm:text-2xl">{value}</span>
     </div>
   )
 }
@@ -132,7 +132,7 @@ export default function DriverDetailPage() {
         <div className="z-10 w-full flex-1 text-center sm:text-left">
           <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <h2 className="mb-1 text-3xl font-bold tracking-tight">
+              <h2 className="mb-1 text-2xl font-bold tracking-tight sm:text-3xl">
                 {driver.fullName}
               </h2>
               <p className="flex items-center justify-center gap-1 text-muted-foreground sm:justify-start">
@@ -168,7 +168,7 @@ export default function DriverDetailPage() {
       </section>
 
       {/* Driver score (dark) */}
-      <section className="col-span-12 flex flex-col items-center justify-center rounded-[2rem] bg-slate p-8 text-slate-foreground shadow-2xl lg:col-span-4">
+      <section className="col-span-12 flex flex-col items-center justify-center rounded-[2rem] bg-slate p-6 text-slate-foreground shadow-2xl sm:p-8 lg:col-span-4">
         <h3 className="mb-6 w-full text-center text-xl font-semibold">
           {t('driverDetail.driverScore')}
         </h3>

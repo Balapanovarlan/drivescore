@@ -26,7 +26,7 @@ export function KpiCard({ label, value, delta, deltaDirection, dark }: KpiCardPr
       >
         {label}
       </p>
-      <p className="mt-2 font-mono text-3xl font-bold tabular-nums tracking-tight">
+      <p className="mt-2 font-mono text-2xl font-bold tabular-nums tracking-tight sm:text-3xl">
         {value}
       </p>
       {delta && (

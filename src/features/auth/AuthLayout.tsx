@@ -17,8 +17,8 @@ export function AuthLayout({ children }: { children: ReactNode }) {
         <p className="text-2xl font-semibold leading-snug">{t('login.tagline')}</p>
         <span className="text-sm text-white/60">{t('app.tagline')}</span>
       </div>
-      <div className="relative flex flex-1 items-center justify-center p-8">
-        <div className="absolute right-6 top-6">
+      <div className="relative flex flex-1 flex-col items-center justify-start gap-6 p-6 sm:p-8 lg:justify-center">
+        <div className="self-end lg:absolute lg:right-6 lg:top-6">
           <LanguageSwitcher />
         </div>
         <div className="w-full max-w-sm">{children}</div>

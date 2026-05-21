@@ -193,6 +193,10 @@
     "generate": "Generate password",
     "copy": "Copy password",
     "submit": "Create user",
-    "created": "User created."
+    "created": "User created.",
+    "delete": "Delete user",
+    "deleteConfirm": "Permanently delete {{name}}? This cannot be undone.",
+    "deleteSelfTooltip": "You cannot delete yourself.",
+    "actions": "Actions"
   }
 }
