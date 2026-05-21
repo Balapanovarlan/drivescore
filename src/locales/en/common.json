@@ -216,5 +216,11 @@
     "deleteConfirm": "Permanently delete {{name}}? This cannot be undone.",
     "deleteSelfTooltip": "You cannot delete yourself.",
     "actions": "Actions"
+  },
+  "severity": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "critical": "Critical"
   }
 }

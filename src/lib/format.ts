@@ -21,9 +21,12 @@ export function formatKm(value: number, locale: Locale): string {
 }
 
 export function formatDate(iso: string, locale: Locale): string {
+  // Numeric day/month/year — same shape in every locale. The 'short' month
+  // format produced "M04"-style placeholders in Kazakh because the kk CLDR
+  // dataset isn't shipped in every JS engine; numeric is universally supported.
   return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
     day: '2-digit',
-    month: 'short',
+    month: '2-digit',
     year: 'numeric',
   }).format(new Date(iso))
 }

@@ -40,18 +40,18 @@ export async function changePassword(input: {
 
 const TOKEN_KEY = 'drivescore.token'
 
-// Stored in sessionStorage so the token does NOT survive a browser restart and
-// is isolated per tab. Less attack surface than localStorage for a B2B app.
+// localStorage so the token is shared across tabs of the same origin. The JWT
+// has its own 7-day expiry on the server, which is the actual session lifetime.
 export function getToken(): string | null {
-  return sessionStorage.getItem(TOKEN_KEY)
+  return localStorage.getItem(TOKEN_KEY)
 }
 
 export function setToken(token: string): void {
-  sessionStorage.setItem(TOKEN_KEY, token)
+  localStorage.setItem(TOKEN_KEY, token)
 }
 
 export function clearToken(): void {
-  sessionStorage.removeItem(TOKEN_KEY)
-  // Also clean any legacy localStorage tokens from older builds.
   localStorage.removeItem(TOKEN_KEY)
+  // Clean any legacy sessionStorage tokens from the previous build.
+  sessionStorage.removeItem(TOKEN_KEY)
 }

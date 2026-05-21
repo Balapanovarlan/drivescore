@@ -10,9 +10,9 @@ const TOKEN_KEY = 'drivescore.token'
 const CREDENTIAL_ENDPOINTS = ['/auth/login', '/auth/change-password']
 
 function readToken(): string | null {
-  // sessionStorage is the canonical place; fall back to localStorage so users
-  // who logged in before the storage switch don't get bounced once.
-  return sessionStorage.getItem(TOKEN_KEY) ?? localStorage.getItem(TOKEN_KEY)
+  // localStorage is canonical (shared across tabs). The sessionStorage fallback
+  // covers users still on the previous build's storage location.
+  return localStorage.getItem(TOKEN_KEY) ?? sessionStorage.getItem(TOKEN_KEY)
 }
 
 export const apiClient = axios.create({
@@ -35,8 +35,8 @@ apiClient.interceptors.response.use(
         url.startsWith(endpoint),
       )
       if (!isCredentialEndpoint) {
-        sessionStorage.removeItem(TOKEN_KEY)
         localStorage.removeItem(TOKEN_KEY)
+        sessionStorage.removeItem(TOKEN_KEY)
         const path = window.location.pathname
         if (path !== '/login' && path !== '/register') {
           window.location.assign('/login')

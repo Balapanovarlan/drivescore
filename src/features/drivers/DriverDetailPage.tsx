@@ -242,8 +242,10 @@ export default function DriverDetailPage() {
                       {formatDate(event.occurredAt, locale)}
                     </td>
                     <td className="py-4 text-right">
-                      <span className="rounded-full bg-muted px-3 py-1 font-mono text-xs font-bold">
-                        {event.severity}
+                      <span className="rounded-full bg-muted px-3 py-1 text-xs font-bold">
+                        {t(`severity.${event.severity.toLowerCase()}`, {
+                          defaultValue: event.severity,
+                        })}
                       </span>
                     </td>
                   </tr>
