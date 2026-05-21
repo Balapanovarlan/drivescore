@@ -39,14 +39,18 @@ export async function changePassword(input: {
 
 const TOKEN_KEY = 'drivescore.token'
 
+// Stored in sessionStorage so the token does NOT survive a browser restart and
+// is isolated per tab. Less attack surface than localStorage for a B2B app.
 export function getToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY)
+  return sessionStorage.getItem(TOKEN_KEY)
 }
 
 export function setToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, token)
+  sessionStorage.setItem(TOKEN_KEY, token)
 }
 
 export function clearToken(): void {
+  sessionStorage.removeItem(TOKEN_KEY)
+  // Also clean any legacy localStorage tokens from older builds.
   localStorage.removeItem(TOKEN_KEY)
 }

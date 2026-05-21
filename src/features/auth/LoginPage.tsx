@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
@@ -111,13 +111,6 @@ export default function LoginPage() {
         <Button type="submit" className="mt-4 w-full" disabled={mutation.isPending}>
           {mutation.isPending ? t('common.loading') : t('login.submit')}
         </Button>
-
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          {t('login.noAccount')}{' '}
-          <Link to="/register" className="font-semibold text-primary hover:underline">
-            {t('login.registerLink')}
-          </Link>
-        </p>
       </form>
     </AuthLayout>
   )
