@@ -51,7 +51,10 @@
     "password": "Password",
     "submit": "Sign in",
     "noAccount": "Don't have an account?",
-    "registerLink": "Register"
+    "registerLink": "Register",
+    "tooManyAttempts": "Too many failed attempts. Try again in {{duration}}.",
+    "invalidCredentials": "Invalid email or password.",
+    "networkError": "Could not reach the server. Check your connection."
   },
   "register": {
     "eyebrow": "Sign up",
@@ -161,5 +164,13 @@
     "newPassword": "New password",
     "confirmPassword": "Confirm new password",
     "changePasswordButton": "Change password"
+  },
+  "time": {
+    "seconds_one": "{{count}} second",
+    "seconds_other": "{{count}} seconds",
+    "minutes_one": "{{count}} minute",
+    "minutes_other": "{{count}} minutes",
+    "hours_one": "{{count}} hour",
+    "hours_other": "{{count}} hours"
   }
 }

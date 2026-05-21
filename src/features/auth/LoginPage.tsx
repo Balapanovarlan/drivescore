@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { login, setToken } from '@/api/auth.api'
+import { formatDuration } from '@/lib/formatDuration'
 import { AuthLayout } from './AuthLayout'
 import { PasswordInput } from './PasswordInput'
 
@@ -34,11 +35,39 @@ export default function LoginPage() {
     mutation.mutate()
   }
 
-  const errorMessage =
-    mutation.error && axios.isAxiosError(mutation.error)
-      ? (mutation.error.response?.data as { detail?: string } | undefined)?.detail ??
-        mutation.error.message
-      : null
+  function buildErrorMessage(): string | null {
+    if (!mutation.error) return null
+    if (!axios.isAxiosError(mutation.error)) return mutation.error.message
+    const err = mutation.error
+
+    // Network failure (no response from server)
+    if (!err.response) return t('login.networkError')
+
+    const status = err.response.status
+
+    if (status === 429) {
+      // Prefer the Retry-After header; fall back to scraping the seconds from `detail`.
+      const headerValue = err.response.headers?.['retry-after']
+      let seconds = headerValue ? Number(headerValue) : NaN
+      if (!Number.isFinite(seconds)) {
+        const detail = (err.response.data as { detail?: string } | undefined)?.detail ?? ''
+        const match = detail.match(/(\d+)\s*s/)
+        if (match) seconds = Number(match[1])
+      }
+      if (Number.isFinite(seconds) && seconds > 0) {
+        return t('login.tooManyAttempts', { duration: formatDuration(seconds, t) })
+      }
+      return t('login.tooManyAttempts', { duration: '' }).trim()
+    }
+
+    if (status === 401) return t('login.invalidCredentials')
+
+    return (
+      (err.response.data as { detail?: string } | undefined)?.detail ?? err.message
+    )
+  }
+
+  const errorMessage = buildErrorMessage()
 
   return (
     <AuthLayout>

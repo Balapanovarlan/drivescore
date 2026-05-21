@@ -51,7 +51,10 @@
     "password": "Құпия сөз",
     "submit": "Кіру",
     "noAccount": "Аккаунт жоқ па?",
-    "registerLink": "Тіркелу"
+    "registerLink": "Тіркелу",
+    "tooManyAttempts": "Сәтсіз әрекеттер тым көп. {{duration}} кейін қайталаңыз.",
+    "invalidCredentials": "Жарамсыз e-mail немесе құпиясөз.",
+    "networkError": "Серверге қосыла алмадық. Байланысты тексеріңіз."
   },
   "register": {
     "eyebrow": "Тіркелу",
@@ -161,5 +164,13 @@
     "newPassword": "Жаңа құпия сөз",
     "confirmPassword": "Жаңа құпия сөзді растаңыз",
     "changePasswordButton": "Құпия сөзді өзгерту"
+  },
+  "time": {
+    "seconds_one": "{{count}} секунд",
+    "seconds_other": "{{count}} секунд",
+    "minutes_one": "{{count}} минут",
+    "minutes_other": "{{count}} минут",
+    "hours_one": "{{count}} сағат",
+    "hours_other": "{{count}} сағат"
   }
 }
