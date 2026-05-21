@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
   GaugeIcon,
@@ -10,6 +10,7 @@ import {
   MapPinIcon,
   TrendUpIcon,
   SealCheckIcon,
+  ArrowLeftIcon,
   type Icon,
 } from '@phosphor-icons/react'
 import { ScoreTrendChart } from '@/components/charts/ScoreTrendChart'
@@ -89,9 +90,18 @@ function StatTile({ label, value }: { label: string; value: string }) {
 
 export default function DriverDetailPage() {
   const { t, i18n } = useTranslation()
+  const navigate = useNavigate()
   const { id = '' } = useParams()
   const { data: driver, isLoading } = useDriver(id)
   const locale = (i18n.resolvedLanguage ?? 'ru') as Locale
+
+  function goBack() {
+    if (window.history.length > 1) {
+      navigate(-1)
+    } else {
+      navigate('/drivers')
+    }
+  }
 
   if (isLoading) {
     return <p className="text-muted-foreground">{t('common.loading')}</p>
@@ -110,7 +120,17 @@ export default function DriverDetailPage() {
     .join('')
 
   return (
-    <div className="grid grid-cols-12 gap-6" data-testid="page-driver-detail">
+    <div className="flex flex-col gap-6" data-testid="page-driver-detail">
+      <button
+        type="button"
+        onClick={goBack}
+        className="inline-flex w-fit items-center gap-2 rounded-xl border bg-card px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+      >
+        <ArrowLeftIcon size={16} />
+        {t('common.back')}
+      </button>
+
+      <div className="grid grid-cols-12 gap-6">
       {/* Profile header */}
       <section
         className={cn(
@@ -255,6 +275,7 @@ export default function DriverDetailPage() {
           </table>
         </div>
       </section>
+      </div>
     </div>
   )
 }

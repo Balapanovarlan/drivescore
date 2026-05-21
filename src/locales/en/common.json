@@ -18,7 +18,8 @@
     "logout": "Log out",
     "language": "Language",
     "loading": "Loading…",
-    "role": "Insurance Officer"
+    "role": "Insurance Officer",
+    "openNav": "Open navigation"
   },
   "pages": {
     "dashboard": "Portfolio Overview",
@@ -42,7 +43,9 @@
   },
   "common": {
     "loading": "Loading…",
-    "error": "Failed to load data"
+    "error": "Failed to load data",
+    "back": "Back",
+    "close": "Close"
   },
   "login": {
     "eyebrow": "Sign in",
@@ -222,5 +225,39 @@
     "medium": "Medium",
     "high": "High",
     "critical": "Critical"
+  },
+  "onboarding": {
+    "stepCounter": "Step {{current}} of {{total}}",
+    "goToStep": "Go to step {{n}}",
+    "next": "Next",
+    "done": "Got it",
+    "skip": "Skip the tour",
+    "openHelp": "Open the tour",
+    "steps": {
+      "welcome": {
+        "title": "Welcome to DriveScore",
+        "body": "A risk-scoring console for fleet insurers in Kazakhstan. Each driver gets a 0–100 safety score based on real КоАП violations — and an insurance coefficient you can charge accordingly."
+      },
+      "dashboard": {
+        "title": "Dashboard at a glance",
+        "body": "The first thing you see is the portfolio risk overview: average score, high-risk share, distribution across tiers, and the top-N most risky drivers ready to drill into."
+      },
+      "drivers": {
+        "title": "Driver registry",
+        "body": "Searchable, filterable list of every driver in your portfolio. Click any row to open a full risk card with score history, factor breakdown, and the КоАП events behind the score."
+      },
+      "simulator": {
+        "title": "What-if simulator",
+        "body": "Punch in any combination of violations and accidents to see the resulting score, tier, and premium coefficient. Useful for new-customer quotes or scenario modelling."
+      },
+      "import": {
+        "title": "Bulk import",
+        "body": "Upload a CSV of КоАП violations (comma or semicolon, even Excel-RU exports with BOM) and DriveScore re-scores every affected driver on the spot. Errors are flagged row-by-row."
+      },
+      "users": {
+        "title": "Manage your team",
+        "body": "As an admin you can add managers, hand them a generated password, change roles, and remove access. Everyone signs in with their own credentials — no shared logins."
+      }
+    }
   }
 }
