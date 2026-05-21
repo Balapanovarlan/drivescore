@@ -69,7 +69,7 @@ export function DataTable<T>({
                   key={col.key}
                   onClick={() => toggleSort(col.key, sortable)}
                   className={cn(
-                    'border-b pb-2.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground',
+                    'border-b px-3 pb-2.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground first:pl-0 last:pr-0',
                     col.align === 'right' ? 'text-right' : 'text-left',
                     sortable && 'cursor-pointer select-none',
                   )}
@@ -103,7 +103,7 @@ export function DataTable<T>({
                 <td
                   key={col.key}
                   className={cn(
-                    'py-3 text-sm',
+                    'px-3 py-3 text-sm first:pl-0 last:pr-0',
                     col.align === 'right' ? 'text-right' : 'text-left',
                   )}
                 >
