@@ -1,5 +1,8 @@
 {
-  "app": { "name": "DriveScore", "tagline": "Страховая консоль" },
+  "app": {
+    "name": "DriveScore",
+    "tagline": "Страховая консоль"
+  },
   "nav": {
     "dashboard": "Дашборд",
     "drivers": "Водители",
@@ -12,7 +15,9 @@
   "shell": {
     "search": "Поиск",
     "logout": "Выйти",
-    "language": "Язык"
+    "language": "Язык",
+    "loading": "Загрузка…",
+    "role": "Менеджер по страхованию"
   },
   "pages": {
     "dashboard": "Обзор портфеля",
@@ -34,7 +39,10 @@
     "redLight": "Проезд на красный",
     "accident": "ДТП"
   },
-  "common": { "loading": "Загрузка…", "error": "Не удалось загрузить данные" },
+  "common": {
+    "loading": "Загрузка…",
+    "error": "Не удалось загрузить данные"
+  },
   "login": {
     "eyebrow": "Вход",
     "heading": "С возвращением",
@@ -54,7 +62,8 @@
     "confirmPassword": "Подтвердите пароль",
     "submit": "Создать аккаунт",
     "haveAccount": "Уже есть аккаунт?",
-    "loginLink": "Войти"
+    "loginLink": "Войти",
+    "passwordMismatch": "Пароли не совпадают"
   },
   "dashboard": {
     "subtitle": "Риск портфеля кратко",

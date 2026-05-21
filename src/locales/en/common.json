@@ -1,5 +1,8 @@
 {
-  "app": { "name": "DriveScore", "tagline": "Insurance Console" },
+  "app": {
+    "name": "DriveScore",
+    "tagline": "Insurance Console"
+  },
   "nav": {
     "dashboard": "Dashboard",
     "drivers": "Drivers",
@@ -12,7 +15,9 @@
   "shell": {
     "search": "Search",
     "logout": "Log out",
-    "language": "Language"
+    "language": "Language",
+    "loading": "Loading…",
+    "role": "Insurance Officer"
   },
   "pages": {
     "dashboard": "Portfolio Overview",
@@ -34,7 +39,10 @@
     "redLight": "Red-light",
     "accident": "Accidents"
   },
-  "common": { "loading": "Loading…", "error": "Failed to load data" },
+  "common": {
+    "loading": "Loading…",
+    "error": "Failed to load data"
+  },
   "login": {
     "eyebrow": "Sign in",
     "heading": "Welcome back",
@@ -54,7 +62,8 @@
     "confirmPassword": "Confirm password",
     "submit": "Create account",
     "haveAccount": "Already have an account?",
-    "loginLink": "Sign in"
+    "loginLink": "Sign in",
+    "passwordMismatch": "Passwords do not match"
   },
   "dashboard": {
     "subtitle": "Portfolio risk at a glance",

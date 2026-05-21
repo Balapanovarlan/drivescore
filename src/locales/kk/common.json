@@ -1,5 +1,8 @@
 {
-  "app": { "name": "DriveScore", "tagline": "Сақтандыру консолі" },
+  "app": {
+    "name": "DriveScore",
+    "tagline": "Сақтандыру консолі"
+  },
   "nav": {
     "dashboard": "Бақылау тақтасы",
     "drivers": "Жүргізушілер",
@@ -12,7 +15,9 @@
   "shell": {
     "search": "Іздеу",
     "logout": "Шығу",
-    "language": "Тіл"
+    "language": "Тіл",
+    "loading": "Жүктелуде…",
+    "role": "Сақтандыру менеджері"
   },
   "pages": {
     "dashboard": "Портфельге шолу",
@@ -34,7 +39,10 @@
     "redLight": "Қызыл шамнан өту",
     "accident": "Жол апаттары"
   },
-  "common": { "loading": "Жүктелуде…", "error": "Деректерді жүктеу сәтсіз аяқталды" },
+  "common": {
+    "loading": "Жүктелуде…",
+    "error": "Деректерді жүктеу сәтсіз аяқталды"
+  },
   "login": {
     "eyebrow": "Кіру",
     "heading": "Қайта келдіңіз",
@@ -54,7 +62,8 @@
     "confirmPassword": "Құпия сөзді растаңыз",
     "submit": "Аккаунт жасау",
     "haveAccount": "Аккаунтыңыз бар ма?",
-    "loginLink": "Кіру"
+    "loginLink": "Кіру",
+    "passwordMismatch": "Құпиясөздер сәйкес келмейді"
   },
   "dashboard": {
     "subtitle": "Портфель тәуекеліне шолу",
