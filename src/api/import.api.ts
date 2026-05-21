@@ -1,16 +1,21 @@
 import { apiClient } from './client'
 
-export interface ImportPayload {
-  kind: 'events' | 'violations'
-  rows: number
+export interface ImportError {
+  row: number
+  message: string
 }
 
 export interface ImportResult {
   importedRecords: number
   recomputedDrivers: number
+  errors: ImportError[]
 }
 
-export async function importCsv(payload: ImportPayload): Promise<ImportResult> {
-  const { data } = await apiClient.post<ImportResult>('/import/csv', payload)
+export async function importViolationsCsv(file: File): Promise<ImportResult> {
+  const form = new FormData()
+  form.append('file', file)
+  const { data } = await apiClient.post<ImportResult>('/import/violations', form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
   return data
 }

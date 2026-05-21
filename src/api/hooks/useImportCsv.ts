@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import { importCsv } from '../import.api'
+import { importViolationsCsv } from '../import.api'
 
 export function useImportCsv() {
-  return useMutation({ mutationFn: importCsv })
+  return useMutation({ mutationFn: importViolationsCsv })
 }

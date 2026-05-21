@@ -1,32 +1,34 @@
-import { useState, type ChangeEvent } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { UploadSimpleIcon, EyeIcon } from '@phosphor-icons/react'
+import { UploadSimpleIcon } from '@phosphor-icons/react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { SectionCard } from '@/components/widgets/SectionCard'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { useImportCsv } from '@/api/hooks/useImportCsv'
-
-type Kind = 'events' | 'violations'
+import { importViolationsCsv, type ImportResult } from '@/api/import.api'
 
 export default function ImportPage() {
   const { t } = useTranslation()
-  const [kind, setKind] = useState<Kind>('events')
   const [fileName, setFileName] = useState<string | null>(null)
-  const [rows, setRows] = useState<string[]>([])
-  const importMutation = useImportCsv()
+  const [result, setResult] = useState<ImportResult | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [pending, setPending] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  async function handleFile(e: ChangeEvent<HTMLInputElement>) {
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
     setFileName(file.name)
-    const text = await file.text()
-    setRows(text.split(/\r?\n/).filter((line) => line.trim().length > 0))
-    importMutation.reset()
-  }
-
-  function handleImport() {
-    importMutation.mutate({ kind, rows: Math.max(0, rows.length - 1) })
+    setResult(null)
+    setError(null)
+    setPending(true)
+    try {
+      const res = await importViolationsCsv(file)
+      setResult(res)
+    } catch (err) {
+      setError((err as Error).message)
+    } finally {
+      setPending(false)
+      if (inputRef.current) inputRef.current.value = ''
+    }
   }
 
   return (
@@ -34,58 +36,34 @@ export default function ImportPage() {
       <PageHeader title={t('pages.import')} subtitle={t('import.subtitle')} />
 
       <SectionCard title={t('import.upload')} icon={UploadSimpleIcon}>
-        <div className="mb-4 flex gap-1">
-          {(['events', 'violations'] as Kind[]).map((k) => (
-            <button
-              key={k}
-              type="button"
-              onClick={() => setKind(k)}
-              className={cn(
-                'rounded-lg px-3 py-1.5 text-sm font-medium',
-                kind === k
-                  ? 'bg-slate text-slate-foreground'
-                  : 'text-muted-foreground hover:bg-secondary',
-              )}
-            >
-              {k === 'events' ? t('import.kindEvents') : t('import.kindViolations')}
-            </button>
-          ))}
-        </div>
-
         <label className="flex cursor-pointer flex-col items-center gap-2 rounded-2xl border border-dashed py-10 text-sm text-muted-foreground hover:bg-secondary">
           <UploadSimpleIcon size={28} />
-          {fileName ?? t('import.selectFile')}
+          {pending ? '…' : (fileName ?? t('import.selectFile'))}
           <input
+            ref={inputRef}
             type="file"
-            accept=".csv"
+            accept=".csv,text/csv"
             className="hidden"
             onChange={handleFile}
           />
         </label>
-      </SectionCard>
 
-      {rows.length > 0 && (
-        <SectionCard title={t('import.preview')} icon={EyeIcon}>
-          <pre className="max-h-60 overflow-auto rounded-xl bg-muted p-3 font-mono text-xs">
-            {rows.slice(0, 10).join('\n')}
-          </pre>
-          <Button
-            className="mt-4"
-            onClick={handleImport}
-            disabled={importMutation.isPending}
-          >
-            {t('import.submit')}
-          </Button>
-          {importMutation.data && (
-            <p className="mt-3 text-sm font-medium text-risk-low">
-              {t('import.result', {
-                records: importMutation.data.importedRecords,
-                drivers: importMutation.data.recomputedDrivers,
-              })}
-            </p>
-          )}
-        </SectionCard>
-      )}
+        {result && (
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t('import.imported', { count: result.importedRecords })}
+            {' · '}
+            {t('import.recomputed', { count: result.recomputedDrivers })}
+          </p>
+        )}
+        {result?.errors && result.errors.length > 0 && (
+          <ul className="mt-2 text-sm text-risk-high">
+            {result.errors.slice(0, 5).map((e) => (
+              <li key={e.row}>row {e.row}: {e.message}</li>
+            ))}
+          </ul>
+        )}
+        {error && <p className="mt-3 text-sm text-risk-high">{error}</p>}
+      </SectionCard>
     </div>
   )
 }

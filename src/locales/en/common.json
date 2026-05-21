@@ -126,7 +126,9 @@
     "kindViolations": "Violations",
     "preview": "Preview",
     "submit": "Import & recompute",
-    "result": "Imported {{records}} records, recomputed {{drivers}} drivers"
+    "result": "Imported {{records}} records, recomputed {{drivers}} drivers",
+    "imported": "{{count}} rows imported",
+    "recomputed": "{{count}} drivers recomputed"
   },
   "profile": {
     "title": "Profile",
