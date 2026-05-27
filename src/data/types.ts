@@ -28,10 +28,8 @@ export interface ScoreResult {
   riskCategory: RiskCategory
   premiumCoefficient: number
   breakdown: Record<ScoreFactor, number>
-  riskTier?: 'low' | 'moderate' | 'high' | 'dangerous' | 'critical'
+  riskTier?: RiskCategory
   finalPremiumKzt?: number
-  accidentFactor?: number
-  discount?: number
 }
 
 export interface TelematicsEvent {

@@ -126,22 +126,29 @@ mock.onPost('/api/users').reply((config) => {
 mock.onGet('/api/koap-articles').reply(200, [
   { code: 'Art.592', name: 'Minor speeding', weight: 2, factorGroup: 'speeding' },
   { code: 'Art.591', name: 'Phone usage', weight: 5, factorGroup: 'phoneUsage' },
-  { code: 'Art.599', name: 'Red light', weight: 8, factorGroup: 'redLight' },
+  { code: 'Art.599', name: 'Red light', weight: 10, factorGroup: 'redLight' },
 ])
 
-// POST /api/score/simulate — coarse client-side mirror of the docx formula
-// so the Vercel demo (no real backend) still reacts to user input.
+// POST /api/score/simulate — mirrors backend другаяформула.docx formula:
+//   RiskScore = k · [Σ(W·F·R·D) + 10·n_acc]
+//   Premium   = 22000 · (1 + RiskScore)
+// All violations assumed today (decay = 1.0). Used by the Vercel demo when no
+// real backend is reachable.
 mock.onPost('/api/score/simulate').reply((config) => {
   const body = JSON.parse(config.data ?? '{}') as {
     violations: { articleCode: string; atFault: boolean }[]
     accidentCount: number
   }
 
+  const K_SCALE = 0.07
+  const BASE_PREMIUM = 22_000
+  const ACCIDENT_PENALTY = 10
+
   const WEIGHTS: Record<string, number> = {
     'Art.592': 2,
-    'Art.592 Part 3-1': 10,
+    'Art.592 Part 3-1': 12,
     'Art.591': 5,
-    'Art.599': 8,
+    'Art.599': 10,
     'Art.593': 3,
     'Art.596 Part 3': 15,
     'Art.613 Part 1': 12,
@@ -166,7 +173,6 @@ mock.onPost('/api/score/simulate').reply((config) => {
     'Art.613 Part 4': 'accident',
   }
 
-  // Group by article, F=count, R from table
   const grouped: Record<string, number> = {}
   for (const v of body.violations) {
     grouped[v.articleCode] = (grouped[v.articleCode] ?? 0) + 1
@@ -179,62 +185,33 @@ mock.onPost('/api/score/simulate').reply((config) => {
     redLight: 0,
     accident: 0,
   }
-  let riskScore = 0
+  let rawScore = 0
   for (const [code, count] of Object.entries(grouped)) {
     const w = WEIGHTS[code] ?? 0
-    const r = count <= 1 ? 1.0 : count === 2 ? 1.3 : count === 3 ? 1.6 : 2.0
+    const r = count <= 1 ? 1.0 : 1.0 + 0.1 * (count - 1) // linear R
     const contribution = w * count * r // decay = 1.0 because all today
-    riskScore += contribution
+    rawScore += contribution
     const group = FACTOR_GROUP[code] ?? 'accident'
     breakdown[group] += contribution
   }
-  riskScore = Math.round(riskScore * 100) / 100
+  rawScore += ACCIDENT_PENALTY * Math.max(0, body.accidentCount)
+  rawScore = Math.round(rawScore * 100) / 100
 
-  const accidentFactor =
-    body.accidentCount === 0
-      ? 1.0
-      : body.accidentCount === 1
-        ? 1.2
-        : body.accidentCount === 2
-          ? 1.5
-          : 2.0
-  const discount = body.violations.length === 0 ? 0.25 : 0
-  const behavioral = 1 + 0.02 * riskScore
-  const finalPremium = Math.round(200_000 * behavioral * accidentFactor * (1 - discount))
+  const behavioral = 1 + K_SCALE * rawScore
+  const finalPremium = Math.round(BASE_PREMIUM * behavioral)
 
-  const safety = Math.max(0, Math.min(100, Math.round(100 * Math.exp(-riskScore / 30))))
-  let tier: 'low' | 'moderate' | 'high' | 'dangerous' | 'critical' = 'low'
-  let coef = 0.9
-  if (riskScore > 50) {
-    tier = 'critical'
-    coef = 2.2
-  } else if (riskScore > 30) {
-    tier = 'dangerous'
-    coef = 1.7
-  } else if (riskScore > 15) {
-    tier = 'high'
-    coef = 1.3
-  } else if (riskScore > 5) {
-    tier = 'moderate'
-    coef = 1.0
-  }
-  const riskCategory =
-    tier === 'low' || tier === 'moderate'
-      ? 'low'
-      : tier === 'high'
-        ? 'medium'
-        : 'high'
+  const safety = Math.max(0, Math.min(100, Math.round(100 * Math.exp(-rawScore / 30))))
+  const riskCategory: 'low' | 'medium' | 'high' =
+    safety >= 70 ? 'low' : safety >= 30 ? 'medium' : 'high'
 
   return [
     200,
     {
       score: safety,
       riskCategory,
-      riskTier: tier,
-      premiumCoefficient: coef,
+      riskTier: riskCategory,
+      premiumCoefficient: Math.round(behavioral * 10000) / 10000,
       finalPremiumKzt: finalPremium,
-      accidentFactor,
-      discount,
       breakdown,
     },
   ]

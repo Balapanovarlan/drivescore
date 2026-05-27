@@ -16,11 +16,9 @@ export interface SimulateIn {
 export interface SimulateResult {
   score: number
   riskCategory: RiskCategory
-  riskTier: 'low' | 'moderate' | 'high' | 'dangerous' | 'critical'
+  riskTier: RiskCategory
   premiumCoefficient: number
   finalPremiumKzt: number
-  accidentFactor: number
-  discount: number
   breakdown: Record<ScoreFactor, number>
 }
 
